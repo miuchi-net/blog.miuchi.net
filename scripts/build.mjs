@@ -34,6 +34,7 @@ function renderPage({ posts }) {
     <meta name="twitter:title" content="blog.miuchi.net">
     <meta name="twitter:description" content="${escapeAttribute(siteDescription)}">
     <meta name="twitter:image" content="${escapeAttribute(ogImage)}">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
