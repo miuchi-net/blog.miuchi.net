@@ -6,6 +6,7 @@ const data = JSON.parse(await readFile(new URL("data/posts.json", sourceDir), "u
 
 await mkdir(distDir, { recursive: true });
 await cp(new URL("styles.css", sourceDir), new URL("styles.css", distDir));
+await cp(new URL("assets/", sourceDir), new URL("assets/", distDir), { recursive: true });
 await writeFile(new URL(".nojekyll", distDir), "");
 await writeFile(new URL("index.html", distDir), renderPage(data));
 
@@ -13,6 +14,9 @@ console.log(`Built ${data.posts.length} posts into ${distDir.pathname}`);
 
 function renderPage({ posts }) {
   const sortedPosts = [...posts].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+  const siteDescription = "miuchi.net のブログ";
+  const siteUrl = "https://blog.miuchi.net/";
+  const ogImage = `${siteUrl}assets/og.png`;
 
   return `<!doctype html>
 <html lang="ja">
@@ -20,7 +24,16 @@ function renderPage({ posts }) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>blog.miuchi.net</title>
-    <meta name="description" content="fuku.day/blog、blog.momee.mt、abap34's blog の最新記事をまとめたブログポータル">
+    <meta name="description" content="${escapeAttribute(siteDescription)}">
+    <meta property="og:title" content="blog.miuchi.net">
+    <meta property="og:description" content="${escapeAttribute(siteDescription)}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="${escapeAttribute(siteUrl)}">
+    <meta property="og:image" content="${escapeAttribute(ogImage)}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="blog.miuchi.net">
+    <meta name="twitter:description" content="${escapeAttribute(siteDescription)}">
+    <meta name="twitter:image" content="${escapeAttribute(ogImage)}">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
