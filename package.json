@@ -1,0 +1,13 @@
+{
+  "name": "blog.miuchi.net",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch:feeds": "node scripts/fetch-feeds.mjs",
+    "build": "node scripts/fetch-feeds.mjs && node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
